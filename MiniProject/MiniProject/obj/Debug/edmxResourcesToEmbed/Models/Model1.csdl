@@ -1,0 +1,101 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="Training_18Apr19_Cloud_CGKPModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Employer_180623">
+    <Key>
+      <PropertyRef Name="Name" />
+    </Key>
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Password" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+    <Property Name="Emailid" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="MobileNo" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="Designation" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Experience" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="EmployerClients" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="Job_180623">
+    <Key>
+      <PropertyRef Name="Jobid" />
+    </Key>
+    <Property Name="Jobid" Type="Int32" Nullable="false" />
+    <Property Name="Designation" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Company" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="ComapnyName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Salary" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="JobSeeker_180623">
+    <Key>
+      <PropertyRef Name="Name" />
+    </Key>
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Password" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+    <Property Name="Emailid" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="MobileNo" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="Location" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="photo" Type="Binary" MaxLength="Max" FixedLength="false" />
+    <Property Name="Position" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Experience" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="PreferredJobLocation" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="Skills" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Dateofapplication" Type="DateTime" Precision="0" />
+    <Property Name="Resume" Type="Binary" MaxLength="Max" FixedLength="false" />
+    <Property Name="Status" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Approved_180623" Relationship="Self.FK__Approved_1__Name__286302EC" FromRole="JobSeeker_180623" ToRole="Approved_180623" />
+    <NavigationProperty Name="Resume_180623" Relationship="Self.FK__Resume_180__Name__2B3F6F97" FromRole="JobSeeker_180623" ToRole="Resume_180623" />
+  </EntityType>
+  <EntityType Name="Resume_180623">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Resumepath" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="JobSeeker_180623" Relationship="Self.FK__Resume_180__Name__2B3F6F97" FromRole="Resume_180623" ToRole="JobSeeker_180623" />
+  </EntityType>
+  <EntityType Name="Approved_180623">
+    <Key>
+      <PropertyRef Name="Name" />
+    </Key>
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="status" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="JobSeeker_180623" Relationship="Self.FK__Approved_1__Name__286302EC" FromRole="Approved_180623" ToRole="JobSeeker_180623" />
+  </EntityType>
+  <Association Name="FK__Approved_1__Name__286302EC">
+    <End Role="JobSeeker_180623" Type="Self.JobSeeker_180623" Multiplicity="1" />
+    <End Role="Approved_180623" Type="Self.Approved_180623" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="JobSeeker_180623">
+        <PropertyRef Name="Name" />
+      </Principal>
+      <Dependent Role="Approved_180623">
+        <PropertyRef Name="Name" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Resume_180__Name__2B3F6F97">
+    <End Role="JobSeeker_180623" Type="Self.JobSeeker_180623" Multiplicity="1" />
+    <End Role="Resume_180623" Type="Self.Resume_180623" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="JobSeeker_180623">
+        <PropertyRef Name="Name" />
+      </Principal>
+      <Dependent Role="Resume_180623">
+        <PropertyRef Name="Name" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="Training_18Apr19_Cloud_CGKPEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Employer_180623" EntityType="Self.Employer_180623" />
+    <EntitySet Name="Job_180623" EntityType="Self.Job_180623" />
+    <EntitySet Name="JobSeeker_180623" EntityType="Self.JobSeeker_180623" />
+    <EntitySet Name="Resume_180623" EntityType="Self.Resume_180623" />
+    <EntitySet Name="Approved_180623" EntityType="Self.Approved_180623" />
+    <AssociationSet Name="FK__Approved_1__Name__286302EC" Association="Self.FK__Approved_1__Name__286302EC">
+      <End Role="JobSeeker_180623" EntitySet="JobSeeker_180623" />
+      <End Role="Approved_180623" EntitySet="Approved_180623" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Resume_180__Name__2B3F6F97" Association="Self.FK__Resume_180__Name__2B3F6F97">
+      <End Role="JobSeeker_180623" EntitySet="JobSeeker_180623" />
+      <End Role="Resume_180623" EntitySet="Resume_180623" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

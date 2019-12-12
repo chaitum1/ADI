@@ -1,0 +1,73 @@
+﻿@model IEnumerable<MiniProject.Models.Job_180623>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/Jobsview.cshtml";
+}
+
+<h2>Current Openings</h2>
+@using (Html.BeginForm())
+{
+
+@*<div>
+
+    @Html.AntiForgeryToken()
+    <input type="text" name="ComapnyName" placeholder="ComapnyName" />
+
+    <div>
+        <button class="btn-default" onclick="search()">Search</button>
+    </div>
+
+
+    <input type="submit" value="Search" class="btn " />
+</div>*@
+}
+
+    @*<p>
+        @Html.ActionLink("Create New", "Create")
+    </p>*@
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Designation)
+        </th>
+        @*<th>
+                @Html.DisplayNameFor(model => model.Company)
+            </th>*@
+        <th>
+            @Html.DisplayNameFor(model => model.ComapnyName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Salary)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Designation)
+            </td>
+            @*<td>
+                    @Html.DisplayFor(modelItem => item.Company)
+                </td>*@
+            <td>
+                @Html.DisplayFor(modelItem => item.ComapnyName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Salary)
+            </td>
+            <td>
+                @*@Html.ActionLink("Edit", "Edit", new { id=item.Jobid }) |*@
+                @Html.ActionLink("Details", "Details", new { id = item.Jobid }) |
+                @Html.ActionLink("ApplyJob", "Create", "JobSeeker", routeValues: null, htmlAttributes: new { id = "regLink" })
+                @*@Html.ActionLink("Delete", "Delete", new { id=item.Jobid })*@
+            </td>
+        </tr>
+        
+    }
+
+</table>
+
+

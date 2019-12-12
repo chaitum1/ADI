@@ -1,0 +1,104 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="Training_18Apr19_Cloud_CGKPModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'Training_18Apr19_Cloud_CGKP.dbo.Approved_180623' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="Approved_180623">
+    <Key>
+      <PropertyRef Name="Name" />
+    </Key>
+    <Property Name="Name" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="status" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="Employer_180623">
+    <Key>
+      <PropertyRef Name="Name" />
+    </Key>
+    <Property Name="Name" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="Password" Type="varchar" MaxLength="25" />
+    <Property Name="Emailid" Type="nvarchar" MaxLength="50" />
+    <Property Name="MobileNo" Type="varchar" MaxLength="20" />
+    <Property Name="Designation" Type="nvarchar" MaxLength="50" />
+    <Property Name="Experience" Type="nvarchar" MaxLength="50" />
+    <Property Name="EmployerClients" Type="varchar" MaxLength="100" />
+  </EntityType>
+  <EntityType Name="Job_180623">
+    <Key>
+      <PropertyRef Name="Jobid" />
+    </Key>
+    <Property Name="Jobid" Type="int" Nullable="false" />
+    <Property Name="Designation" Type="varchar" MaxLength="50" />
+    <Property Name="Company" Type="varchar" MaxLength="50" />
+    <Property Name="ComapnyName" Type="varchar" MaxLength="50" />
+    <Property Name="Salary" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="JobSeeker_180623">
+    <Key>
+      <PropertyRef Name="Name" />
+    </Key>
+    <Property Name="Name" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="Password" Type="varchar" MaxLength="25" />
+    <Property Name="Emailid" Type="nvarchar" MaxLength="50" />
+    <Property Name="MobileNo" Type="varchar" MaxLength="20" />
+    <Property Name="Location" Type="nvarchar" MaxLength="50" />
+    <Property Name="photo" Type="varbinary(max)" />
+    <Property Name="Position" Type="nvarchar" MaxLength="50" />
+    <Property Name="Experience" Type="nvarchar" MaxLength="50" />
+    <Property Name="PreferredJobLocation" Type="varchar" MaxLength="20" />
+    <Property Name="Skills" Type="nvarchar" MaxLength="50" />
+    <Property Name="Dateofapplication" Type="date" />
+    <Property Name="Resume" Type="varbinary(max)" />
+    <Property Name="Status" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="Resume_180623">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="Resumepath" Type="varchar(max)" />
+  </EntityType>
+  <Association Name="FK__Approved_1__Name__286302EC">
+    <End Role="JobSeeker_180623" Type="Self.JobSeeker_180623" Multiplicity="1" />
+    <End Role="Approved_180623" Type="Self.Approved_180623" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="JobSeeker_180623">
+        <PropertyRef Name="Name" />
+      </Principal>
+      <Dependent Role="Approved_180623">
+        <PropertyRef Name="Name" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Resume_180__Name__2B3F6F97">
+    <End Role="JobSeeker_180623" Type="Self.JobSeeker_180623" Multiplicity="1" />
+    <End Role="Resume_180623" Type="Self.Resume_180623" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="JobSeeker_180623">
+        <PropertyRef Name="Name" />
+      </Principal>
+      <Dependent Role="Resume_180623">
+        <PropertyRef Name="Name" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="Training_18Apr19_Cloud_CGKPModelStoreContainer">
+    <EntitySet Name="Employer_180623" EntityType="Self.Employer_180623" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Job_180623" EntityType="Self.Job_180623" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="JobSeeker_180623" EntityType="Self.JobSeeker_180623" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Resume_180623" EntityType="Self.Resume_180623" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Approved_180623" EntityType="Self.Approved_180623" store:Type="Tables" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [Approved_180623].[Name] AS [Name], 
+    [Approved_180623].[status] AS [status]
+    FROM [dbo].[Approved_180623] AS [Approved_180623]</DefiningQuery>
+    </EntitySet>
+    <AssociationSet Name="FK__Approved_1__Name__286302EC" Association="Self.FK__Approved_1__Name__286302EC">
+      <End Role="JobSeeker_180623" EntitySet="JobSeeker_180623" />
+      <End Role="Approved_180623" EntitySet="Approved_180623" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Resume_180__Name__2B3F6F97" Association="Self.FK__Resume_180__Name__2B3F6F97">
+      <End Role="JobSeeker_180623" EntitySet="JobSeeker_180623" />
+      <End Role="Resume_180623" EntitySet="Resume_180623" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

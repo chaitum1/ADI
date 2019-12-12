@@ -1,0 +1,75 @@
+﻿@model MiniProject.Models.Employer_180623
+
+@{
+    ViewBag.Title = "EmployerLogin";
+    Layout = "~/Views/Shared/employer.cshtml";
+}
+
+<h2>EmployerLogin</h2>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <style>
+
+        body, html {
+            height: 100%;
+        }
+
+        .bg {
+            /* The image used */
+            background-image: url('../../Image/Employer.jpg');
+            /* Full height */
+            height: 100%;
+            /* Center and scale the image nicely */
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+    </style>
+    <!-- Custom fonts for this template-->
+    <link href="~/Scripts/User/all.min.css" rel="stylesheet" type="text/css">
+    <!-- Custom styles for this template-->
+    <link href="~/Scripts/User/sb-admin.css" rel="stylesheet">
+</head>
+<body class="bg">
+    <div class="container">
+        <div class="card card-login mx-auto mt-5">
+            <div class="card-header"></div>
+            <div class="card-body">
+                <form method="post">
+                    <div class="form-group">
+                        <div class="form-label-group">
+                            <label for="Emailid">Emailid</label>
+                            <input type="text" id="Emailid" class="form-control" placeholder="Emailid" required="required" name="Emailid" autofocus="autofocus">
+
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="form-label-group">
+                            <label for="inputPassword">Password</label>
+                            <input type="password" id="inputPassword" class="form-control" placeholder="Password" name="Password" required="required">
+
+                        </div>
+                    </div>
+
+                    <button class="btn btn-primary ">Login</button>
+                    @if (ViewBag.Status == false)
+                    {
+                        <p class="alert alert-danger" id="successMessage">@ViewBag.Message</p>
+                    }
+                </form>
+                <div class="text-left">
+                    <label>If not Registered</label>
+                    <a href="~/Employer/Create"><label style="color:darkred">Click Here</label> </a>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Bootstrap core JavaScript-->
+    <script src="~/Scripts/User/jquery.min.js"></script>
+    <script src="~/Scripts/User/bootstrap.bundle.min.js"></script>
+    <!-- Core plugin JavaScript-->
+    <script src="~/Scripts/User/jquery.easing.min.js"></script>
+</body>
+</html>
